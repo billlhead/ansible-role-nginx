@@ -4,6 +4,9 @@ server {
     listen       {{ item.listen | default('80') }};
     server_name  {{ item.server_name_redirect }};
     return       301 $scheme://{{ item.server_name.split(' ')[0] }}$request_uri;
+    {% if item.extra_parameters_redirect is defined %}
+        {{ item.extra_parameters_redirect|indent(4) }}
+    {% endif %}
 }
 {% endif %}
 {% endblock %}
